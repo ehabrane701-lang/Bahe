@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول - VPS DARK</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #0a0a2a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* خلفية متحركة */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,0.1), transparent);
+      animation: float 15s infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(50px, -50px) scale(1.2); }
+    }
+    
+    .login-card {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 50px;
+      width: 100%;
+      max-width: 450px;
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      animation: fadeInUp 0.6s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .logo {
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00d4ff, #0066ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 30px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    }
+    
+    .checkbox {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      cursor: pointer;
+      color: #ccc;
+    }
+    
+    .checkbox input {
+      width: auto;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(90deg, #00d4ff, #0066ff);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    
+    button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+    }
+
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .message {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      font-weight: 500;
+    }
+    
+    .error {
+      background: rgba(255, 0, 0, 0.2);
+      border: 1px solid #ff0000;
+      color: #ff5555;
+    }
+
+    .success {
+      background: rgba(0, 255, 100, 0.2);
+      border: 1px solid #00ff66;
+      color: #5fffa3;
+    }
+    
+    .admin-info {
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid #ffd700;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .admin-info h4 {
+      color: #ffd700;
+      margin-bottom: 8px;
+    }
+
+    .admin-info p {
+      color: #ddd;
+      font-size: 14px;
+      margin: 4px 0;
+    }
+    
+    @media (max-width: 768px) {
+      .login-card {
+        margin: 20px;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="circle" style="width: 300px; height: 300px; top: -100px; right: -100px;"></div>
+  <div class="circle" style="width: 500px; height: 500px; bottom: -200px; left: -200px; animation-delay: -5s;"></div>
+  <div class="circle" style="width: 200px; height: 200px; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.3;"></div>
+  
+  <div class="login-card">
+    <div class="logo">🚀 VPS DARK</div>
+    <div class="subtitle">لوحة التحكم الاحترافية</div>
+    
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <input type="text" id="username" placeholder="👤 اسم المستخدم" required autocomplete="username">
+      <input type="password" id="password" placeholder="🔒 كلمة المرور" required autocomplete="current-password">
+      
+      <label class="checkbox">
+        <input type="checkbox" id="rememberMe"> تذكرني
+      </label>
+      
+      <button type="submit" id="loginBtn">🚀 دخول</button>
+    </form>
+    
+    <div id="message" class="message"></div>
+    
+    <div id="adminInfo" class="admin-info">
+      <h4>👑 حساب المسؤول</h4>
+      <p>اسم المستخدم: AAAAAA</p>
+      <p>كلمة المرور: AAAAAA</p>
+    </div>
+  </div>
+  
+  <script>
+    // عرض معلومات المسؤول تلقائياً عند إدخال اسم المستخدم الصحيح
+    document.getElementById('username').addEventListener('input', function() {
+      const adminInfo = document.getElementById('adminInfo');
+      if (this.value.trim().toLowerCase() === 'aaaaaa') {
+        adminInfo.style.display = 'block';
+      } else {
+        adminInfo.style.display = 'none';
+      }
+    });
+    
+    // دالة تسجيل الدخول المتكاملة
+    async function handleLogin(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      const loginBtn = document.getElementById('loginBtn');
+      
+      if (!username || !password) {
+        showMessage('يرجى إدخال اسم المستخدم وكلمة المرور', 'error');
+        return;
+      }
+      
+      // تعطيل الزر وتغيير النص أثناء المعالجة
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'جاري التحقق...';
+      
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password, remember_me: rememberMe })
+        });
+        
+        if (!res.ok) {
+          throw new Error('فشل الاتصال بالخادم');
+        }
+        
+        const data = await res.json();
+        
+        if (data.success) {
+          showMessage('✅ تم تسجيل الدخول بنجاح', 'success');
+          setTimeout(() => {
+            window.location.href = data.redirect || '/';
+          }, 1000);
+        } else {
+          showMessage('❌ ' + (data.message || 'بيانات الدخول غير صحيحة'), 'error');
+          loginBtn.disabled = false;
+          loginBtn.textContent = '🚀 دخول';
+        }
+      } catch (error) {
+        // آلية احتياطية (Fallback) في حال تم اختبار الملف محلياً بدون خادم خلفي
+        if (username.toLowerCase() === 'aaaaaa' && password === 'aaaaaa') {
+          showMessage('✅ تم تسجيل الدخول بنجاح (وضع المعاينة المحلية)', 'success');
+          setTimeout(() => {
+            window.location.href = '#dashboard';
+          }, 1000);
+        } else {
+          showMessage('⚠️ خطأ في الاتصال بالخادم أو بيانات الدخول غير صحيحة', 'error');
+          loginBtn.disabled = false;
+          loginBtn.textContent = '🚀 دخول';
+        }
+      }
+    }
+    
+    // عرض الرسائل بشكل منسق
+    function showMessage(text, type) {
+      const msg = document.getElementById('message');
+      msg.textContent = text;
+      msg.className = `message ${type}`;
+      msg.style.display = 'block';
+      
+      setTimeout(() => {
+        msg.style.display = 'none';
+      }, 3500);
+    }
+    
+    // التحقق التلقائي من حالة تسجيل الدخول مسبقاً
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/current_user');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success) {
+            window.location.href = data.redirect || '/';
+          }
+        }
+      } catch(e) {
+        // تجاهل الخطأ في حالة عدم وجود خلفية برمجية
+      }
+    }
+    
+    checkAuth();
+  </script>
+</body>
+</html>
